@@ -4,7 +4,7 @@ import Product from "./Product/Product";
 import "./all-products-styles.css";
 import { Typography } from "@mui/material";
 
-const AllProducts = ({ products }) => {
+const AllProducts = ({ products, addToCart }) => {
   return (
     <main>
       <Typography variant="h6" sx={{ mt: 10, mb: 2, textAlign: "center" }}>
@@ -13,7 +13,7 @@ const AllProducts = ({ products }) => {
       <Grid container justifyContent="center" spacing={1}>
         {products.map((product) => (
           <Grid item key={product.id} xs={12} sm={6} md={4} lg={3}>
-            <Product product={product} />
+            <Product product={product} addToCart={addToCart} />
           </Grid>
         ))}
       </Grid>

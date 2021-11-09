@@ -10,7 +10,7 @@ import {
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import "./product-styles.css";
 
-const Product = ({ product }) => {
+const Product = ({ product, addToCart }) => {
   return (
     <Card sx={{ mx: { xs: 1, sm: 2 } }}>
       <CardMedia
@@ -36,7 +36,12 @@ const Product = ({ product }) => {
         />
       </CardContent>
       <CardActions disableSpacing sx={{ bgcolor: "primary.light" }}>
-        <IconButton aria-label="Add item to cart">
+        <IconButton
+          aria-label="Add item to cart"
+          onClick={() => {
+            addToCart(product.id, 1);
+          }}
+        >
           <AddShoppingCartIcon color="secondary" />
         </IconButton>
       </CardActions>
