@@ -1,4 +1,17 @@
-.card-main {
+.card-content {
+  min-height: 9rem;
+}
+
+.card-info {
   display: flex;
   justify-content: space-between;
+}
+
+.image {
+  height: 17rem;
+  width: fit-content;
+}
+
+p {
+  margin: 0;
 }
