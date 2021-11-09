@@ -1,4 +1,8 @@
-.logo {
+.navbar-left {
+  display: flex;
+  align-items: center;
+}
+.navbar-right {
   display: flex;
   align-items: center;
 }

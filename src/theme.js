@@ -10,7 +10,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    h4: {
+    h5: {
       fontFamily: "Caveat",
       letterSpacing: "2px",
     },

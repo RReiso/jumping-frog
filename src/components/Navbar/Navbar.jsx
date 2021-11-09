@@ -26,13 +26,24 @@ const Navbar = () => {
             alignItems: "center",
           }}
         >
-          <div className="logo">
+          <div className="navbar-left">
             <img src={logo} alt="Oyuncak Shop" height="50px" />
-            <Typography variant="h4" color="inherit" sx={{ px: 2 }}>
+            <Typography
+              variant="h5"
+              color="inherit"
+              sx={{ display: { xs: "none", sm: "block" }, px: 2 }}
+            >
               Oyuncak Shop
             </Typography>
           </div>
-          <div>
+          <div className="navbar-right">
+            <Typography
+              variant="h5"
+              color="inherit"
+              sx={{ display: { xs: "none", sm: "block" }, px: 2 }}
+            >
+              +67 459 332 67
+            </Typography>
             <IconButton aria-label="Show cart items" color="inherit">
               <Badge badgeContent={3} color="secondary">
                 <ShoppingCartIcon />
