@@ -11,11 +11,13 @@ import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import "./product-styles.css";
 
 const Product = ({ product }) => {
+  console.log(product);
+  // return <div>test</div>;
   return (
     <Card sx={{ mx: { xs: 1, sm: 2 } }}>
       <CardMedia
         sx={{ m: 1 }}
-        image={product.image}
+        image={product.image.url}
         component="img"
         alt={product.name}
       />
@@ -24,11 +26,15 @@ const Product = ({ product }) => {
           <Typography variant="h6" gutterBottom>
             {product.name}
           </Typography>
-          <Typography variant="h6">{product.price}</Typography>
+          <Typography variant="h6">
+            {product.price.formatted_with_symbol}
+          </Typography>
         </div>
-        <Typography variant="body1" color="text.secondary">
-          {product.description}
-        </Typography>
+        <Typography
+          dangerouslySetInnerHTML={{ __html: product.description }}
+          variant="body1"
+          color="text.secondary"
+        />
       </CardContent>
       <CardActions disableSpacing sx={{ bgcolor: "primary.light" }}>
         <IconButton aria-label="Add item to cart">
