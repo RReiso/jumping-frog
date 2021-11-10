@@ -11,7 +11,7 @@ import {
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import logo from "../../assets/logo.png";
 import "./navbar-styles.css";
-const Navbar = () => {
+const Navbar = ({ totalItems }) => {
   return (
     <>
       <AppBar
@@ -45,7 +45,7 @@ const Navbar = () => {
               +67 459 332 67
             </Typography>
             <IconButton aria-label="Show cart items" color="inherit">
-              <Badge badgeContent={3} color="secondary">
+              <Badge badgeContent={totalItems} color="secondary">
                 <ShoppingCartIcon />
               </Badge>
             </IconButton>

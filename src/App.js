@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { ThemeProvider } from "@mui/material/styles";
 import { commerce } from "./lib/commerce";
 import theme from "./theme";
-import Products from "./components/AllProducts";
+import AllProducts from "./components/Products/AllProducts";
 import Navbar from "./components/Navbar/Navbar";
+import Cart from "./components/Cart/Cart";
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -16,6 +17,7 @@ const App = () => {
   };
   const fetchCart = async () => {
     const cart = await commerce.cart.retrieve();
+    console.log("cart", cart);
     setCart(cart);
   };
 
@@ -31,12 +33,11 @@ const App = () => {
     fetchCart();
   }, []);
 
-  console.log(cart);
-
   return (
     <ThemeProvider theme={theme}>
-      <Navbar />
-      <Products products={products} addToCart={addToCart} />
+      <Navbar totalItems={cart.total_items} />
+      <AllProducts products={products} addToCart={addToCart} />
+      <Cart cart={cart} />
     </ThemeProvider>
   );
 };

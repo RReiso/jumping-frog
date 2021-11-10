@@ -1,6 +1,6 @@
 import React from "react";
 import { Grid } from "@mui/material";
-import Product from "./Product/Product";
+import Product from "./Product";
 import "./all-products-styles.css";
 import { Typography } from "@mui/material";
 
