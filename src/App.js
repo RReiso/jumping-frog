@@ -6,6 +6,7 @@ import theme from "./theme";
 import AllProducts from "./components/Products/AllProducts";
 import Navbar from "./components/Navbar/Navbar";
 import Cart from "./components/Cart/Cart";
+import Checkout from "./components/CheckoutForm/Checkout";
 
 const App = () => {
   const [products, setProducts] = useState([]);
@@ -72,6 +73,7 @@ const App = () => {
               />
             }
           />
+          <Route exact path="/checkout" element={<Checkout />} />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

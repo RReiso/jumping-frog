@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Typography, Grid, Button, Container } from "@mui/material";
 import CartItem from "./CartItem";
 
@@ -37,6 +38,8 @@ const FullCart = ({ cart, updateCart, removeItemFromCart, emptyCart }) => {
             Empty Cart
           </Button>
           <Button
+            component={Link}
+            to="/checkout"
             size="large"
             type="button"
             variant="contained"
