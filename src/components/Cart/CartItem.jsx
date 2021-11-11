@@ -14,14 +14,15 @@ const CartItem = ({ item }) => {
   return (
     <Card>
       <CardMedia
+        sx={{ width: "fit-content", mx: "auto", my: 1 }}
         component="img"
         alt={item.name}
         image={item.image.url}
         className="cart-item-image"
       />
-      <CardContent>
-        <Typography variant="h4">{item.name}</Typography>
-        <Typography variant="h5">
+      <CardContent className="item-card-content">
+        <Typography variant="body1">{item.name}</Typography>
+        <Typography variant="h6">
           {item.line_total.formatted_with_symbol}
         </Typography>
       </CardContent>
@@ -32,6 +33,9 @@ const CartItem = ({ item }) => {
         <Typography>{item.quantity}</Typography>
         <Button type="button" size="=small" color="secondary">
           +
+        </Button>
+        <Button variant="contained" type="button" color="secondary">
+          Remove
         </Button>
       </CardActions>
     </Card>

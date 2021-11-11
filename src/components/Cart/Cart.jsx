@@ -9,7 +9,9 @@ const Cart = ({ cart }) => {
   const isEmptyCart = !cart.line_items.length; // !0=>true; !5=>false
   return (
     <Container>
-      <Typography variant="h4">Your Shopping Cart</Typography>
+      <Typography gutterBottom variant="h4">
+        Your Shopping Cart
+      </Typography>
       {isEmptyCart ? <EmptyCart /> : <FullCart cart={cart} />}
     </Container>
   );
