@@ -23,10 +23,26 @@ const App = () => {
   };
 
   const addToCart = async (productID, quantity) => {
-    const item = await commerce.cart.add(productID, quantity);
-    console.log("item ", item);
-    console.log("item.cart ", item.cart);
-    setCart(item.cart);
+    const response = await commerce.cart.add(productID, quantity);
+
+    setCart(response.cart); // all products in the cart after adding
+  };
+
+  const updateCart = async (productID, quantity) => {
+    const response = await commerce.cart.update(productID, { quantity });
+    setCart(response.cart); // all products in the cart after updating
+  };
+
+  const removeItemFromCart = async (productID) => {
+    const response = await commerce.cart.remove(productID);
+    console.log("removed response", response);
+    setCart(response.cart);
+  };
+
+  const emptyCart = async () => {
+    const response = await commerce.cart.empty();
+    console.log("empty cart", response);
+    setCart({});
   };
 
   useEffect(() => {
@@ -44,7 +60,18 @@ const App = () => {
             path="/"
             element={<AllProducts products={products} addToCart={addToCart} />}
           />
-          <Route exact path="/cart" element={<Cart cart={cart} />} />
+          <Route
+            exact
+            path="/cart"
+            element={
+              <Cart
+                cart={cart}
+                updateCart={updateCart}
+                removeItemFromCart={removeItemFromCart}
+                emptyCart={emptyCart}
+              />
+            }
+          />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>

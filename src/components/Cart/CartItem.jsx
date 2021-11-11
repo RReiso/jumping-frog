@@ -9,7 +9,7 @@ import {
   CardMedia,
 } from "@mui/material";
 
-const CartItem = ({ item }) => {
+const CartItem = ({ item, updateCart, removeItemFromCart }) => {
   console.log(item);
   return (
     <Card>
@@ -27,15 +27,30 @@ const CartItem = ({ item }) => {
         </Typography>
       </CardContent>
       <CardActions sx={{ bgcolor: "primary.light" }}>
-        <Button type="button" size="=small" color="secondary">
+        <Button
+          onClick={() => updateCart(item.id, item.quantity - 1)}
+          type="button"
+          size="=small"
+          color="secondary"
+        >
           -
         </Button>
         <Typography>{item.quantity}</Typography>
-        <Button type="button" size="=small" color="secondary">
+        <Button
+          onClick={() => updateCart(item.id, item.quantity + 1)}
+          type="button"
+          size="=small"
+          color="secondary"
+        >
           +
         </Button>
-        <Button variant="contained" type="button" color="secondary">
-          Remove
+        <Button
+          onClick={() => removeItemFromCart(item.id)}
+          variant="contained"
+          type="button"
+          color="secondary"
+        >
+          Remove from cart
         </Button>
       </CardActions>
     </Card>

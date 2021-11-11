@@ -2,7 +2,7 @@ import React from "react";
 import { Typography, Grid, Button, Container } from "@mui/material";
 import CartItem from "./CartItem";
 
-const FullCart = ({ cart }) => {
+const FullCart = ({ cart, updateCart, removeItemFromCart, emptyCart }) => {
   return (
     <>
       <Container
@@ -14,7 +14,11 @@ const FullCart = ({ cart }) => {
       >
         {cart.line_items.map((item) => (
           <Container key={item.id}>
-            <CartItem item={item} />
+            <CartItem
+              item={item}
+              updateCart={updateCart}
+              removeItemFromCart={removeItemFromCart}
+            />
           </Container>
         ))}
       </Container>
@@ -24,6 +28,7 @@ const FullCart = ({ cart }) => {
         </Typography>
         <div>
           <Button
+            onClick={emptyCart}
             size="large"
             type="button"
             variant="contained"
