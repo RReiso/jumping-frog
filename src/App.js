@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import { commerce } from "./lib/commerce";
 import theme from "./theme";
@@ -35,9 +36,17 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Navbar totalItems={cart.total_items} />
-      <AllProducts products={products} addToCart={addToCart} />
-      <Cart cart={cart} />
+      <BrowserRouter>
+        <Navbar totalItems={cart.total_items} />
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={<AllProducts products={products} addToCart={addToCart} />}
+          />
+          <Route exact path="/cart" element={<Cart cart={cart} />} />
+        </Routes>
+      </BrowserRouter>
     </ThemeProvider>
   );
 };
