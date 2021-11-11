@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, useLocation } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -12,6 +13,8 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import logo from "../../assets/logo.png";
 import "./navbar-styles.css";
 const Navbar = ({ totalItems }) => {
+  const { pathname } = useLocation();
+  console.log("location", pathname);
   return (
     <>
       <AppBar
@@ -27,11 +30,19 @@ const Navbar = ({ totalItems }) => {
           }}
         >
           <div className="navbar-left">
-            <img src={logo} alt="Oyuncak Shop" height="50px" />
+            <a href="/">
+              <img src={logo} alt="Oyuncak Shop" height="50px" />
+            </a>
             <Typography
+              component={Link}
+              to="/"
               variant="h5"
               color="inherit"
-              sx={{ display: { xs: "none", sm: "block" }, px: 2 }}
+              sx={{
+                display: { xs: "none", sm: "block" },
+                px: 2,
+                textDecoration: "none",
+              }}
             >
               Oyuncak Shop
             </Typography>
@@ -44,11 +55,18 @@ const Navbar = ({ totalItems }) => {
             >
               +67 459 332 67
             </Typography>
-            <IconButton aria-label="Show cart items" color="inherit">
-              <Badge badgeContent={totalItems} color="secondary">
-                <ShoppingCartIcon />
-              </Badge>
-            </IconButton>
+            {pathname === "/" && (
+              <IconButton
+                component={Link}
+                to="/cart"
+                aria-label="Show cart items"
+                color="inherit"
+              >
+                <Badge badgeContent={totalItems} color="secondary">
+                  <ShoppingCartIcon />
+                </Badge>
+              </IconButton>
+            )}
           </div>
         </Toolbar>
       </AppBar>
