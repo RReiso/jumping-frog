@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm, FormProvider } from "react-hook-form";
 import CustomTextField from "./CustomTextField";
+import { commerce } from "../../lib/commerce";
 import {
   InputLabel,
   Select,
@@ -10,8 +11,10 @@ import {
   Typography,
 } from "@mui/material";
 
-const AddressForm = () => {
+const AddressForm = ({ checkoutToken }) => {
   const methods = useForm();
+
+  console.log("checkTOKEN", checkoutToken);
   return (
     <>
       <Typography variant="h6" gutterBottom>
