@@ -20,7 +20,26 @@ const AddressForm = () => {
       <FormProvider {...methods}>
         <form onSubmit="">
           <Grid container spacing={3}>
-            <CustomTextField required name="firstName" label="First Name" />
+            <CustomTextField name="firstName" label="First Name" />
+            <CustomTextField name="lastName" label="Last Name" />
+            <CustomTextField name="address" label="Address" />
+            <CustomTextField name="email" label="Email" />
+            <CustomTextField name="city" label="City" />
+            <CustomTextField name="postalCode" label="Postal Code" />
+            <CustomTextField
+              disabled
+              name="country"
+              label="Country"
+              value="Turkey"
+            />
+            <Grid item xs={12} sm={6}>
+              <InputLabel>Shipping Subdivision</InputLabel>
+              <Select value="" fullWidth onChange="">
+                <MenuItem key="" value="">
+                  Hello
+                </MenuItem>
+              </Select>
+            </Grid>
           </Grid>
         </form>
       </FormProvider>

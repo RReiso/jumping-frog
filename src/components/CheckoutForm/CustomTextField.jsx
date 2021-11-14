@@ -1,18 +1,25 @@
-// Component connects react-hook-form with MaterialUI text input
+// Component connects react-hook-form with Material-UI text input
 import React from "react";
 import { TextField, Grid } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
 
-const CustomTextField = ({ name, label, required }) => {
+const CustomTextField = ({ name, label, value }) => {
   const { control } = useForm();
+
+  const displayTextInput = (field) => {
+    return value === "Turkey" ? (
+      <TextField {...field} fullWidth value={value} disabled required />
+    ) : (
+      <TextField {...field} fullWidth label={label} required />
+    );
+  };
+
   return (
     <Grid item xs={12} sm={6}>
       <Controller
         control={control}
         name={name}
-        render={({ field }) => (
-          <TextField {...field} fullWidth label={label} required />
-        )}
+        render={({ field }) => displayTextInput(field)}
       />
     </Grid>
   );
