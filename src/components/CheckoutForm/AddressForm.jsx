@@ -13,6 +13,23 @@ import {
 
 const AddressForm = ({ checkoutToken }) => {
   const methods = useForm();
+  const [shippingPrice, setShippingPrice] = useState("");
+
+  const fetchShippingOption = async (checkoutTokenID) => {
+    const shippingType = await commerce.checkout.getShippingOptions(
+      checkoutTokenID,
+      {
+        country: "TR",
+      }
+    );
+    console.log("shipping", shippingType);
+    setShippingPrice(shippingType[0].price.formatted_with_symbol);
+    console.log(shippingPrice);
+  };
+
+  useEffect(() => {
+    fetchShippingOption(checkoutToken.id, "TR");
+  });
 
   console.log("checkTOKEN", checkoutToken);
   return (
@@ -35,16 +52,17 @@ const AddressForm = ({ checkoutToken }) => {
               label="Country"
               value="Turkey"
             />
-            <Grid item xs={12} sm={6}>
+            {/* <Grid item xs={12} sm={6}>
               <InputLabel>Shipping Subdivision</InputLabel>
               <Select value="" fullWidth onChange="">
                 <MenuItem key="" value="">
                   Hello
                 </MenuItem>
               </Select>
-            </Grid>
+            </Grid> */}
           </Grid>
         </form>
+        <Typography>Domestic Shipping - {shippingPrice}</Typography>
       </FormProvider>
     </>
   );
