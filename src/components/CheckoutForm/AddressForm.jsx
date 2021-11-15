@@ -8,37 +8,38 @@ import {
   MenuItem,
   Button,
   Grid,
+  Link,
   Typography,
 } from "@mui/material";
 
-const AddressForm = ({ checkoutToken }) => {
+const AddressForm = ({ shippingPrice, proceedToPayment }) => {
   const methods = useForm();
-  const [shippingPrice, setShippingPrice] = useState("");
+  // const [shippingPrice, setShippingPrice] = useState("");
 
-  const fetchShippingOption = async (checkoutTokenID) => {
-    const shippingType = await commerce.checkout.getShippingOptions(
-      checkoutTokenID,
-      {
-        country: "TR",
-      }
-    );
-    console.log("shipping", shippingType);
-    setShippingPrice(shippingType[0].price.formatted_with_symbol);
-    console.log(shippingPrice);
-  };
+  // const fetchShippingOption = async (checkoutTokenID) => {
+  //   const shippingType = await commerce.checkout.getShippingOptions(
+  //     checkoutTokenID,
+  //     {
+  //       country: "TR",
+  //     }
+  //   );
+  //   console.log("shipping", shippingType);
+  //   setShippingPrice(shippingType[0].price.formatted_with_symbol);
+  //   console.log(shippingPrice);
+  // };
 
-  useEffect(() => {
-    fetchShippingOption(checkoutToken.id, "TR");
-  });
+  // useEffect(() => {
+  //   fetchShippingOption(checkoutToken.id, "TR");
+  // });
 
-  console.log("checkTOKEN", checkoutToken);
+  // console.log("checkTOKEN", checkoutToken);
   return (
     <>
       <Typography variant="h6" gutterBottom>
         Shipping Address
       </Typography>
       <FormProvider {...methods}>
-        <form onSubmit="">
+        <form onSubmit={methods.handleSubmit((data) => proceedToPayment(data))}>
           <Grid container spacing={3}>
             <CustomTextField name="firstName" label="First Name" />
             <CustomTextField name="lastName" label="Last Name" />
@@ -61,8 +62,16 @@ const AddressForm = ({ checkoutToken }) => {
               </Select>
             </Grid> */}
           </Grid>
+          <div className="form-buttons">
+            <Button component={Link} to="/cart" variant="outlined">
+              Back to Cart
+            </Button>
+            <Button type="submit" variant="contained" color="primary">
+              Continue to Payment
+            </Button>
+          </div>
         </form>
-        <Typography>Domestic Shipping - {shippingPrice}</Typography>
+        <Typography>Domestic Shipping -{shippingPrice} </Typography>
       </FormProvider>
     </>
   );

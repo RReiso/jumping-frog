@@ -20,6 +20,8 @@ const steps = ["Shipping address", "Payment details"];
 const Checkout = ({ cart }) => {
   const [activeStep, setActiveStep] = useState(0);
   const [checkoutToken, setCheckoutToken] = useState(null);
+  const [addressFormData, setAddressFormData] = useState({});
+  const [shippingPrice, setShippingPrice] = useState("");
 
   useEffect(() => {
     console.log("cart.id", cart.id);
@@ -35,9 +37,43 @@ const Checkout = ({ cart }) => {
     generateToken();
   }, [cart]);
 
+  useEffect(() => {
+    console.log("Runnign sec usef", checkoutToken);
+    const fetchShippingOption = async (checkoutTokenID) => {
+      try {
+        const shippingType = await commerce.checkout.getShippingOptions(
+          checkoutTokenID,
+          {
+            country: "TR",
+          }
+        );
+        console.log("shipping", shippingType);
+        const formattedPrice = shippingType[0].price.formatted_with_symbol;
+        console.log(formattedPrice);
+        setShippingPrice(formattedPrice);
+        console.log("shipPR", shippingPrice);
+      } catch (error) {}
+    };
+    if (checkoutToken) fetchShippingOption(checkoutToken.id);
+  }, [checkoutToken, shippingPrice]);
+
+  const moveActiveStep = (num) => {
+    setActiveStep((prevActiveStep) => prevActiveStep + num);
+  };
+  const proceedToPayment = (formData) => {
+    setAddressFormData(formData);
+    moveActiveStep(1);
+  };
+
   const Action = () => {
     if (activeStep === 0) {
-      return <AddressForm checkoutToken={checkoutToken} />;
+      return (
+        <AddressForm
+          checkoutToken={checkoutToken}
+          proceedToPayment={proceedToPayment}
+          shippingPrice={shippingPrice}
+        />
+      );
     } else if (activeStep === steps.length) {
       return <Confirmation />;
     } else {
