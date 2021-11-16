@@ -1,16 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useForm, FormProvider } from "react-hook-form";
 import CustomTextField from "./CustomTextField";
 import { commerce } from "../../lib/commerce";
-import {
-  InputLabel,
-  Select,
-  MenuItem,
-  Button,
-  Grid,
-  Link,
-  Typography,
-} from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 
 const AddressForm = ({ shippingPrice, proceedToPayment }) => {
   const methods = useForm();
@@ -53,17 +46,14 @@ const AddressForm = ({ shippingPrice, proceedToPayment }) => {
               label="Country"
               value="Turkey"
             />
-            {/* <Grid item xs={12} sm={6}>
-              <InputLabel>Shipping Subdivision</InputLabel>
-              <Select value="" fullWidth onChange="">
-                <MenuItem key="" value="">
-                  Hello
-                </MenuItem>
-              </Select>
-            </Grid> */}
           </Grid>
           <div className="form-buttons">
-            <Button component={Link} to="/cart" variant="outlined">
+            <Button
+              component={Link}
+              variant="outlined"
+              type="button"
+              to="/cart"
+            >
               Back to Cart
             </Button>
             <Button type="submit" variant="contained" color="primary">
