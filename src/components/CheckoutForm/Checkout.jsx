@@ -18,9 +18,9 @@ import {
 const steps = ["Shipping address", "Payment details"];
 
 const Checkout = ({ cart }) => {
+  console.log("rendering");
   const [activeStep, setActiveStep] = useState(0);
   const [checkoutToken, setCheckoutToken] = useState(null);
-  const [addressFormData, setAddressFormData] = useState({});
   const [shippingPrice, setShippingPrice] = useState("");
 
   useEffect(() => {
@@ -44,7 +44,7 @@ const Checkout = ({ cart }) => {
         const shippingType = await commerce.checkout.getShippingOptions(
           checkoutTokenID,
           {
-            country: "TR",
+            country: "CA",
           }
         );
         console.log("shipping", shippingType);
@@ -77,7 +77,12 @@ const Checkout = ({ cart }) => {
     } else if (activeStep === steps.length) {
       return <Confirmation />;
     } else {
-      return <PaymentForm checkoutToken={checkoutToken} />;
+      return (
+        <PaymentForm
+          checkoutToken={checkoutToken}
+          moveActiveStep={moveActiveStep}
+        />
+      );
     }
   };
 
