@@ -7,7 +7,7 @@ const CustomTextField = ({ name, label, value }) => {
   const { control } = useForm();
 
   const displayTextInput = (field) => {
-    return value === "Turkey" ? (
+    return value === "Canada" ? (
       <TextField {...field} fullWidth value={value} disabled required />
     ) : (
       <TextField {...field} fullWidth label={label} required />
