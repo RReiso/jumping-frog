@@ -77,7 +77,7 @@ const Checkout = ({ cart }) => {
     } else if (activeStep === steps.length) {
       return <Confirmation />;
     } else {
-      return <PaymentForm />;
+      return <PaymentForm checkoutToken={checkoutToken} />;
     }
   };
 
