@@ -5,8 +5,9 @@ import { Container, Typography, Button, Grid } from "@mui/material";
 
 const Cart = ({ cart, updateCart, removeItemFromCart, emptyCart }) => {
   console.log("KART", cart);
-  if (!cart.line_items) return "Yükleniyor...";
-  const isEmptyCart = !cart.line_items.length; // !0=>true; !5=>false
+  const isEmptyCart = !cart.line_items; // !(empty_obj.property)=>true; !5=>false
+  console.log("sheit", isEmptyCart);
+
   return (
     <Container>
       <Typography gutterBottom variant="h4">
