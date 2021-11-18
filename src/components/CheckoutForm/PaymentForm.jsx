@@ -10,7 +10,52 @@ import Review from "./Review";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
 
-const PaymentForm = ({ checkoutToken, moveActiveStep }) => {
+const PaymentForm = ({
+  checkoutToken,
+  moveActiveStep,
+  addressFormData,
+  captureCheckout,
+}) => {
+  const handleSubmit = (e, elements, stripe) => {
+    e.preventDefault;
+    if (!stripe || !elements) return;
+    const cardElement = elements.getElement(CardElement);
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: "card",
+      card: cardElement,
+    });
+
+    if (error) {
+      console.err(error);
+    } else {
+      const orderData = {
+        line_items: checkoutToken.live.line_items,
+        customer: {
+          firstname: addressFormData.firstName,
+          lastname: addressFormData.lastName,
+          email: addressFormData.email,
+        },
+        shipping: {
+          address: addressFormData.address,
+          city: addressFormData.city,
+          postal_code: addressFormData.postalCode,
+          country: "Canada",
+        },
+        fulfillment: { shipping_method: addressFormData.shippingOption },
+        payment: {
+          gateway: "stripe",
+          stripe: {
+            payment_method_id: paymentMethod.id,
+          },
+        },
+      };
+
+      captureCheckout(checkoutToken.id, orderData);
+
+      moveActiveStep(1);
+    }
+  };
+
   return (
     <>
       <Review checkoutToken={checkoutToken} />
@@ -21,7 +66,7 @@ const PaymentForm = ({ checkoutToken, moveActiveStep }) => {
       <Elements stripe={stripePromise}>
         <ElementsConsumer>
           {(elements, stripe) => (
-            <form>
+            <form onSubmit={(e) => handleSubmit(e, elements, stripe)}>
               <CardElement />
               <div>
                 <Button variant="outlined" onClick={() => moveActiveStep(-1)}>

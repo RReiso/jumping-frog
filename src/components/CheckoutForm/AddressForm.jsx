@@ -13,7 +13,7 @@ const AddressForm = ({ shippingPrice, proceedToPayment }) => {
   //   const shippingType = await commerce.checkout.getShippingOptions(
   //     checkoutTokenID,
   //     {
-  //       country: "TR",
+  //       country: "CA",
   //     }
   //   );
   //   console.log("shipping", shippingType);
@@ -22,7 +22,7 @@ const AddressForm = ({ shippingPrice, proceedToPayment }) => {
   // };
 
   // useEffect(() => {
-  //   fetchShippingOption(checkoutToken.id, "TR");
+  //   fetchShippingOption(checkoutToken.id, "CA);
   // });
 
   // console.log("checkTOKEN", checkoutToken);
@@ -44,7 +44,7 @@ const AddressForm = ({ shippingPrice, proceedToPayment }) => {
               disabled
               name="country"
               label="Country"
-              value="Turkey"
+              value="Canada"
             />
           </Grid>
           <div className="form-buttons">
