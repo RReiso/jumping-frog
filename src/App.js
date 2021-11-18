@@ -46,6 +46,11 @@ const App = () => {
     setCart({});
   };
 
+  const refreshCart = async () => {
+    const emptyCart = await commerce.cart.refresh();
+    setCart(emptyCart);
+  };
+
   useEffect(() => {
     fetchProducts();
     fetchCart();
@@ -73,7 +78,11 @@ const App = () => {
               />
             }
           />
-          <Route exact path="/checkout" element={<Checkout cart={cart} />} />
+          <Route
+            exact
+            path="/checkout"
+            element={<Checkout cart={cart} refreshCart={refreshCart} />}
+          />
         </Routes>
       </BrowserRouter>
     </ThemeProvider>
