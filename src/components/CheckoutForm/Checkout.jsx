@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { commerce } from "../../lib/commerce";
 import AddressForm from "./AddressForm";
 import PaymentForm from "./PaymentForm";
@@ -20,7 +20,7 @@ const steps = ["Shipping address", "Payment details"];
 
 const Checkout = ({ cart, refreshCart }) => {
   console.log("rendering");
-  const history = useHistory();
+  const navigate = useNavigate();
   const [activeStep, setActiveStep] = useState(0);
   const [checkoutToken, setCheckoutToken] = useState(null);
   const [shippingPrice, setShippingPrice] = useState("");
@@ -38,7 +38,7 @@ const Checkout = ({ cart, refreshCart }) => {
         console.log("token", token);
         setCheckoutToken(token);
       } catch (error) {
-        if (activeStep !== steps.length) history.push("/");
+        if (activeStep !== steps.length) navigate("/");
       }
     };
     generateToken();
@@ -54,7 +54,7 @@ const Checkout = ({ cart, refreshCart }) => {
             country: "CA",
           }
         );
-        console.log("shipping", shippingType);
+        console.log("shippingOption", shippingType);
         const formattedPrice = shippingType[0].price.formatted_with_symbol;
         console.log(formattedPrice);
         setShippingPrice(formattedPrice);
@@ -68,7 +68,9 @@ const Checkout = ({ cart, refreshCart }) => {
     setActiveStep((prevActiveStep) => prevActiveStep + num);
   };
   const proceedToPayment = (addressFormData) => {
+    console.log("ADDR", addressFormData);
     setAddressFormData(addressFormData);
+    console.log("ADDR2", addressFormData);
     moveActiveStep(1);
   };
 
@@ -78,6 +80,7 @@ const Checkout = ({ cart, refreshCart }) => {
         checkoutTokenId,
         newOrder
       );
+      console.log("incomorder", incomingOrder);
       setOrder(incomingOrder);
       refreshCart();
     } catch (error) {
@@ -96,7 +99,7 @@ const Checkout = ({ cart, refreshCart }) => {
         />
       );
     } else if (activeStep === steps.length) {
-      return <Confirmation order={order} error={error} />;
+      return <Confirmation order={order} errorMessage={errorMessage} />;
     } else {
       return (
         <PaymentForm

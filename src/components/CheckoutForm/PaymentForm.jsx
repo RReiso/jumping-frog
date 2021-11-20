@@ -9,6 +9,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import Review from "./Review";
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+console.log(stripePromise);
 
 const PaymentForm = ({
   checkoutToken,
@@ -16,18 +17,21 @@ const PaymentForm = ({
   addressFormData,
   captureCheckout,
 }) => {
-  const handleSubmit = (e, elements, stripe) => {
-    e.preventDefault;
+  const handleSubmit = async (e, elements, stripe) => {
+    e.preventDefault();
     if (!stripe || !elements) return;
     const cardElement = elements.getElement(CardElement);
+    console.log("cardElement", cardElement);
     const { error, paymentMethod } = await stripe.createPaymentMethod({
       type: "card",
       card: cardElement,
     });
 
     if (error) {
-      console.err(error);
+      console.error(error);
+      alert(error.message);
     } else {
+      console.log("addressformdata", addressFormData);
       const orderData = {
         line_items: checkoutToken.live.line_items,
         customer: {
@@ -49,6 +53,7 @@ const PaymentForm = ({
           },
         },
       };
+      console.log("orderdata", orderData);
 
       captureCheckout(checkoutToken.id, orderData);
 
@@ -65,24 +70,29 @@ const PaymentForm = ({
       </Typography>
       <Elements stripe={stripePromise}>
         <ElementsConsumer>
-          {(elements, stripe) => (
-            <form onSubmit={(e) => handleSubmit(e, elements, stripe)}>
-              <CardElement />
-              <div>
-                <Button variant="outlined" onClick={() => moveActiveStep(-1)}>
-                  Back
-                </Button>
-                <Button
-                  type="submit"
-                  variant="contained"
-                  color="primary"
-                  disabled={!stripe}
-                >
-                  Place Order
-                </Button>
-              </div>
-            </form>
-          )}
+          {({ elements, stripe }) => {
+            {
+              console.log("elem and stripe", elements, stripe);
+            }
+            return (
+              <form onSubmit={(e) => handleSubmit(e, elements, stripe)}>
+                <CardElement />
+                <div>
+                  <Button variant="outlined" onClick={() => moveActiveStep(-1)}>
+                    Back
+                  </Button>
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    disabled={!stripe}
+                  >
+                    Place Order
+                  </Button>
+                </div>
+              </form>
+            );
+          }}
         </ElementsConsumer>
       </Elements>
     </>
